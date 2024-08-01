@@ -1,1 +1,1 @@
-export class UpdateStoreDto {}
+export class UpdateStoreDto { }
