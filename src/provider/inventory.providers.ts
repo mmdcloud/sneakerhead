@@ -1,6 +1,6 @@
 import { Inventory } from '../entity/inventory.entity';
 
-export const catsProviders = [
+export const inventoryProviders = [
     {
         provide: 'INVENTORY_REPOSITORY',
         useValue: Inventory,
