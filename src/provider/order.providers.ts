@@ -1,8 +1,10 @@
-import { Order } from '../entity/order.entity';
+import { OrderSchema } from '../entities/order.entity';
+import { Connection } from 'mongoose';
 
 export const orderProviders = [
     {
-        provide: 'ORDERS_REPOSITORY',
-        useValue: Order,
+        provide: 'ORDER_MODEL',
+        useFactory: (connection: Connection) => connection.model('order', OrderSchema),
+        inject: ['DATABASE_CONNECTION'],
     },
 ];
