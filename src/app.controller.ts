@@ -19,7 +19,7 @@ export class AppController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.appService.findOne(+id);
+    return this.appService.findOne(id);
   }
 
   @Patch(':id')
@@ -29,6 +29,6 @@ export class AppController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.appService.remove(+id);
+    return this.appService.remove(id);
   }
 }
