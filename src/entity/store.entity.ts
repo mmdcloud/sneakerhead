@@ -19,4 +19,10 @@ export class Store extends Model {
 
     @Column
     longitude: string;
+
+    @Column
+    close_time: string;
+
+    @Column
+    open_time: string;
 }
