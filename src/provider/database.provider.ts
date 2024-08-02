@@ -1,19 +1,20 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Customer } from '../entity/customer.entity';
+import { CustomerAddress } from 'src/customer_addresses/entities/customer_address.entity';
+import { Customer } from 'src/customers/entities/customer.entity';
 
 export const databaseProviders = [
     {
         provide: 'SEQUELIZE',
         useFactory: async () => {
             const sequelize = new Sequelize({
-                dialect: 'mysql',
+                dialect: 'mariadb',
                 host: 'localhost',
                 port: 3306,
                 username: 'root',
-                password: 'password',
-                database: 'nest',
+                password: 'Madmax1997#',
+                database: 'customers',
             });
-            sequelize.addModels([Customer]);
+            sequelize.addModels([Customer, CustomerAddress]);
             await sequelize.sync();
             return sequelize;
         },
