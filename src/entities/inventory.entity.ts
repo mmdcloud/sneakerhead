@@ -1,9 +1,11 @@
-import * as mongoose from 'mongoose';
-
-export const Inventory = new mongoose.Schema({
-    name: String,
-    age: Number,
-    breed: String,
-}, {
-    timestamps: true,
-});
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+@Schema()
+export class Inventory {
+    @Prop()
+    name: string;
+    @Prop()
+    age: number;
+    @Prop()
+    breed: string;
+}
+export const InventorySchema = SchemaFactory.createForClass(Inventory);
