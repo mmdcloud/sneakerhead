@@ -10,8 +10,8 @@ export const databaseProviders = [
                 host: 'localhost',
                 port: 3306,
                 username: 'root',
-                password: 'password',
-                database: 'nest',
+                password: 'Madmax1997#',
+                database: 'stores',
             });
             sequelize.addModels([Store]);
             await sequelize.sync();

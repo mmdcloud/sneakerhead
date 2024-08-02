@@ -1,7 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Store } from './entity/store.entity';
-import { CreateStoreDto } from './dto/create-store.dto';
-import { UpdateStoreDto } from './dto/update-store.dto';
 
 @Injectable()
 export class AppService {
@@ -14,19 +12,24 @@ export class AppService {
     return this.storesRepository.findAll<Store>();
   }
 
-  async findOne(id: number): Promise<Store[]> {
-    return this.storesRepository.findAll<Store>();
+  async findOne(id: number): Promise<Store> {
+    return this.storesRepository.findByPk<Store>(id);
   }
 
-  async create(createStoreDto: CreateStoreDto): Promise<Store[]> {
-    return this.storesRepository.findAll<Store>();
+  async create(createStoreDto): Promise<Store> {
+    var store = new Store(createStoreDto);
+    return await store.save();
   }
 
-  async update(id: number, updateStoreDto: UpdateStoreDto): Promise<Store[]> {
-    return this.storesRepository.findAll<Store>();
+  async update(id: number, updateStoreDto): Promise<[number, Store[]]> {
+    const [affectedCount, affectedRows] = await this.storesRepository.update(updateStoreDto, {
+      where: { id },
+      returning: true,
+    });
+    return [affectedCount, affectedRows as Store[]];
   }
 
-  async remove(id: number): Promise<Store[]> {
-    return this.storesRepository.findAll<Store>();
+  async remove(id: number): Promise<number> {
+    return this.storesRepository.destroy({ where: { id: id } });
   }
 }

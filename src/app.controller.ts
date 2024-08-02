@@ -3,7 +3,7 @@ import { AppService } from './app.service';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
 
-@Controller("/")
+@Controller("stores")
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
