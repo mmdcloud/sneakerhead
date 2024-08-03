@@ -8,7 +8,7 @@ export class AppService {
   constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) { }
 
   async getData(): Promise<string | undefined> {
-    const value = await this.cacheManager.get<string>('key');
+    const value = await this.cacheManager.get<string>('test');
     return value;
   }
 
