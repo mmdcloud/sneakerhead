@@ -1,7 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Transaction } from './entity/transaction.entity';
-import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { Transaction } from './entities/transaction.entity';
 
 @Injectable()
 export class AppService {
@@ -14,19 +12,28 @@ export class AppService {
     return this.transactionsRepository.findAll<Transaction>();
   }
 
-  async findOne(id: number): Promise<Transaction[]> {
-    return this.transactionsRepository.findAll<Transaction>();
+  async findOne(id: number): Promise<Transaction> {
+    return this.transactionsRepository.findByPk<Transaction>(id);
   }
 
-  async create(createTransactionDto: CreateTransactionDto): Promise<Transaction[]> {
-    return this.transactionsRepository.findAll<Transaction>();
+  async create(createTransactionDto): Promise<Transaction> {
+    const transaction = new Transaction(createTransactionDto);
+    return await transaction.save();
   }
 
-  async update(id: number, updateTransactionDto: UpdateTransactionDto): Promise<Transaction[]> {
-    return this.transactionsRepository.findAll<Transaction>();
+  async update(id: number, updateTransactionDto): Promise<[number, Transaction[]]> {
+    const [affectedCount, affectedRows] = await this.transactionsRepository.update(updateTransactionDto, {
+      where: { id },
+      returning: true,
+    });
+    return [affectedCount, affectedRows as Transaction[]];
   }
 
-  async remove(id: number): Promise<Transaction[]> {
-    return this.transactionsRepository.findAll<Transaction>();
+  async remove(id: number): Promise<number> {
+    return this.transactionsRepository.destroy({
+      where: {
+        id
+      }
+    });
   }
 }

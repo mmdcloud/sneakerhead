@@ -1,1 +1,5 @@
-export class CreateTransactionDto {}
+export class CreateTransactionDto {
+    name:string;
+    age:number;
+    breed:string;
+}

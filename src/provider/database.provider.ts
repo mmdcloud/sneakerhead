@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Transaction } from '../entity/transaction.entity';
+import { Transaction } from '../entities/transaction.entity';
 
 export const databaseProviders = [
     {
@@ -10,8 +10,8 @@ export const databaseProviders = [
                 host: 'localhost',
                 port: 3306,
                 username: 'root',
-                password: 'password',
-                database: 'nest',
+                password: 'Madmax1997#',
+                database: 'transactions',
             });
             sequelize.addModels([Transaction]);
             await sequelize.sync();
