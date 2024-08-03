@@ -6,4 +6,6 @@ export class CreateStoreDto {
     country: string;
     state: string;
     city: string;
+    open_time: string;
+    close_time: string;
 }
