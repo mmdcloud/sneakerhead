@@ -31,4 +31,19 @@ export class AppController {
   remove(@Param('id') id: string) {
     return this.appService.remove(+id);
   }
+
+  @Get('getUniqueCountries')
+  getUniqueCountries() {
+    return this.appService.getUniqueCountries();
+  }
+
+  @Get('getUniqueStates')
+  getUniqueStates(@Param('country') country: string) {
+    return this.appService.getUniqueStates(country);
+  }
+
+  @Get('getShopsByCountryAndState')
+  getShopsByCountryAndState(@Param('country') country: string, @Param('state') state: string) {
+    return this.appService.getShopsByCountryAndState(country, state);
+  }
 }

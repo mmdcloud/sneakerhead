@@ -25,4 +25,16 @@ export class Store extends Model {
 
     @Column
     open_time: string;
+
+    @Column
+    country: string;
+
+    @Column
+    state: string;
+
+    @Column
+    city: string;
+
+    @Column
+    shop_image: string;
 }
