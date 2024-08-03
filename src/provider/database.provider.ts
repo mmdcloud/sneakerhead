@@ -1,6 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
 import { CustomerAddress } from 'src/customer_addresses/entities/customer_address.entity';
-import { Customer } from 'src/customers/entities/customer.entity';
 
 export const databaseProviders = [
     {
@@ -12,9 +11,9 @@ export const databaseProviders = [
                 port: 3306,
                 username: 'root',
                 password: 'Madmax1997#',
-                database: 'customers',
+                database: 'customer-addresses',
             });
-            sequelize.addModels([Customer, CustomerAddress]);
+            sequelize.addModels([CustomerAddress]);
             await sequelize.sync();
             return sequelize;
         },
