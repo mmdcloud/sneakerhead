@@ -14,5 +14,23 @@ export class CustomerAddress extends Model {
     customer: number;
 
     @Column
+    mobile_no: string;
+
+    @Column
     address: string;
+
+    @Column
+    country: string;
+
+    @Column
+    state: string;
+
+    @Column
+    city: string;
+
+    @Column
+    pincode: string;
+
+    @Column
+    is_default: boolean;
 }
