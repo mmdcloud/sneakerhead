@@ -34,28 +34,29 @@ export class AppService {
     return this.storesRepository.destroy({ where: { id: id } });
   }
 
-  async getUniqueCountries(): Promise<Store[]> {
-    return this.storesRepository.findAll<Store>({
-      attributes: [
-        [Sequelize.fn('DISTINCT', Sequelize.col('country')), 'country'],
-      ]
+  async getUniqueCountries(): Promise<any> {
+    var result = await this.storesRepository.findAll({
+      attributes: ['country', [Sequelize.fn("COUNT", Sequelize.col("state")), "stateCount"]],
+      group: ['country'],
     });
+    return result;
   }
 
-  async getUniqueStates(country: string): Promise<Store[]> {
-    return this.storesRepository.findAll<Store>({
+  async getUniqueStates(country: string): Promise<any> {
+    return this.storesRepository.findAll({
+      attributes: ['state', [Sequelize.fn("COUNT", Sequelize.col("city")), "cityCount"]],
+      group: ['state'],
       where: {
         country: country,
       },
-      attributes: [
-        [Sequelize.fn('DISTINCT', Sequelize.col('state')), 'state'],
-      ]
     });
   }
 
   async getShopsByCountryAndState(country: string, state: string): Promise<Store[]> {
     return this.storesRepository.findAll<Store>({
       where: {
+        attributes: ['city', [Sequelize.fn("COUNT", Sequelize.col("id")), "shopCount"]],
+        group: ['city'],
         country: country,
         state: state
       }

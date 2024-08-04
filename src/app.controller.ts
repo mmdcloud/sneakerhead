@@ -14,6 +14,7 @@ export class AppController {
 
   @Get()
   findAll() {
+    // return this.appService.getUniqueCountries();
     return this.appService.findAll();
   }
 
