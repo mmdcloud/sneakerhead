@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
@@ -7,6 +7,26 @@ import { UpdateStoreDto } from './dto/update-store.dto';
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
+  @Get('getUniqueCountries')
+  getUniqueCountries() {
+    return this.appService.getUniqueCountries();
+  }
+
+  @Get('getUniqueStates')
+  getUniqueStates(@Query() query: { country: string }) {
+    return this.appService.getUniqueStates(query.country);
+  }
+
+  @Get('getUniqueCities')
+  getUniqueCities(@Query() query: { country: string, state: string }) {
+    return this.appService.getUniqueCities(query.country, query.state);
+  }
+
+  @Get('getAggregatedShops')
+  getAggregatedShops(@Query() query: { country: string, state: string, city: string }) {
+    return this.appService.getAggregatedShops(query.country, query.state, query.city);
+  }
+
   @Post()
   create(@Body() createStoreDto: CreateStoreDto) {
     return this.appService.create(createStoreDto);
@@ -14,7 +34,6 @@ export class AppController {
 
   @Get()
   findAll() {
-    // return this.appService.getUniqueCountries();
     return this.appService.findAll();
   }
 
@@ -31,25 +50,5 @@ export class AppController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.appService.remove(+id);
-  }
-
-  @Get('getUniqueCountries')
-  getUniqueCountries() {
-    return this.appService.getUniqueCountries();
-  }
-
-  @Get('getUniqueStates')
-  getUniqueStates(@Param('country') country: string) {
-    return this.appService.getUniqueStates(country);
-  }
-
-  @Get('getUniqueCities')
-  getUniqueCities(@Param('country') country: string, @Param('state') state: string) {
-    return this.appService.getUniqueCities(country, state);
-  }
-
-  @Get('getAggregatedShops')
-  getAggregatedShops(@Param('country') country: string, @Param('state') state: string, @Param('city') city: string,) {
-    return this.appService.getAggregatedShops(country, state, city);
   }
 }

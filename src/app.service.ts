@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Store } from './entity/store.entity';
 import { Sequelize } from 'sequelize';
+import { log } from 'console';
 
 @Injectable()
 export class AppService {
@@ -43,6 +44,7 @@ export class AppService {
   }
 
   async getUniqueStates(country: string): Promise<any> {
+    log("Country:" + country);
     return this.storesRepository.findAll({
       attributes: ['state', [Sequelize.fn("COUNT", Sequelize.col("city")), "cityCount"]],
       group: ['state'],
@@ -54,9 +56,9 @@ export class AppService {
 
   async getUniqueCities(country: string, state: string): Promise<Store[]> {
     return this.storesRepository.findAll<Store>({
+      attributes: ['city', [Sequelize.fn("COUNT", Sequelize.col("id")), "shopCount"]],
+      group: ['city'],
       where: {
-        attributes: ['city', [Sequelize.fn("COUNT", Sequelize.col("id")), "shopCount"]],
-        group: ['city'],
         country: country,
         state: state
       }
