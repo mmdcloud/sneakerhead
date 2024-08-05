@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { CustomerService } from './customers.service';
 import { LoginRequestDto } from './dto/login-request.dto';
+import { AuthGuard } from './auth.guard';
+import { UpdateFcmTokenRequestDto } from './dto/update-fcm-token-request.dto';
 
 @Controller("customers")
 export class CustomerController {
@@ -36,5 +38,10 @@ export class CustomerController {
   @Post("auth/login")
   login(@Body() loginRequestDto: LoginRequestDto) {
     return this.appService.login(loginRequestDto);
+  }
+  @UseGuards(AuthGuard)
+  @Post("updateFcmToken")
+  updateFcmToken(@Request() req: any, @Body() updateFcmTokenDto: UpdateFcmTokenRequestDto) {
+    return this.appService.updateFcmToken(req.user, updateFcmTokenDto);
   }
 }

@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginRequestDto } from './dto/login-request.dto';
 import { LoginResponse } from './dto/login-response.dto';
 import { JwtService } from '@nestjs/jwt';
+import { UpdateFcmTokenRequestDto } from './dto/update-fcm-token-request.dto';
 
 @Injectable()
 export class CustomerService {
@@ -66,5 +67,16 @@ export class CustomerService {
       sub: record[0].id, contact: record[0].contact
     });
     return response;
+  }
+
+  async updateFcmToken(user, updateFcmTokenDto: UpdateFcmTokenRequestDto): Promise<[number]> {
+    return await Customer.update(
+      { fcm_token: updateFcmTokenDto.token },
+      {
+        where: {
+          id: user.id,
+        },
+      },
+    );
   }
 }

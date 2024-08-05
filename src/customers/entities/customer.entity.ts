@@ -25,6 +25,10 @@ export class Customer extends Model {
     @Column
     password: string;
 
+    @Default("")
+    @Column
+    fcm_token: string;
+
     @Default(false)
     @Column
     is_signedin_with_google: boolean;
