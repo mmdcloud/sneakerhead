@@ -1,55 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { CreateStoreDto } from './dto/create-store.dto';
-import { UpdateStoreDto } from './dto/update-store.dto';
 
-@Controller("stores")
+@Controller()
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Post()
-  create(@Body() createStoreDto: CreateStoreDto) {
-    return this.appService.create(createStoreDto);
-  }
-
-  @Get()
-  findAll() {
-    // return this.appService.getUniqueCountries();
-    return this.appService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.appService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDto) {
-    return this.appService.update(+id, updateStoreDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.appService.remove(+id);
-  }
-
-  @Get('getUniqueCountries')
-  getUniqueCountries() {
-    return this.appService.getUniqueCountries();
-  }
-
-  @Get('getUniqueStates')
-  getUniqueStates(@Param('country') country: string) {
-    return this.appService.getUniqueStates(country);
-  }
-
-  @Get('getUniqueCities')
-  getUniqueCities(@Param('country') country: string, @Param('state') state: string) {
-    return this.appService.getUniqueCities(country, state);
-  }
-
-  @Get('getAggregatedShops')
-  getAggregatedShops(@Param('country') country: string, @Param('state') state: string, @Param('city') city: string,) {
-    return this.appService.getAggregatedShops(country, state, city);
+  sendMail() {
+    this.appService.sendMail();
   }
 }
