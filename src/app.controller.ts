@@ -43,8 +43,13 @@ export class AppController {
     return this.appService.getUniqueStates(country);
   }
 
-  @Get('getShopsByCountryAndState')
-  getShopsByCountryAndState(@Param('country') country: string, @Param('state') state: string) {
-    return this.appService.getShopsByCountryAndState(country, state);
+  @Get('getUniqueCities')
+  getUniqueCities(@Param('country') country: string, @Param('state') state: string) {
+    return this.appService.getUniqueCities(country, state);
+  }
+
+  @Get('getAggregatedShops')
+  getAggregatedShops(@Param('country') country: string, @Param('state') state: string, @Param('city') city: string,) {
+    return this.appService.getAggregatedShops(country, state, city);
   }
 }

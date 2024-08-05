@@ -52,11 +52,21 @@ export class AppService {
     });
   }
 
-  async getShopsByCountryAndState(country: string, state: string): Promise<Store[]> {
+  async getUniqueCities(country: string, state: string): Promise<Store[]> {
     return this.storesRepository.findAll<Store>({
       where: {
         attributes: ['city', [Sequelize.fn("COUNT", Sequelize.col("id")), "shopCount"]],
         group: ['city'],
+        country: country,
+        state: state
+      }
+    });
+  }
+
+  async getAggregatedShops(country: string, state: string, city: string): Promise<Store[]> {
+    return this.storesRepository.findAll<Store>({
+      where: {
+        city: city,
         country: country,
         state: state
       }
