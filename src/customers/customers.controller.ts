@@ -10,6 +10,16 @@ import { UpdateFcmTokenRequestDto } from './dto/update-fcm-token-request.dto';
 export class CustomerController {
   constructor(private readonly appService: CustomerService) { }
 
+  @Post("auth/login")
+  login(@Body() loginRequestDto: LoginRequestDto) {
+    return this.appService.login(loginRequestDto);
+  }
+  @UseGuards(AuthGuard)
+  @Post("updateFcmToken")
+  updateFcmToken(@Request() req: any, @Body() updateFcmTokenDto: UpdateFcmTokenRequestDto) {
+    return this.appService.updateFcmToken(req.user, updateFcmTokenDto);
+  }
+
   @Post()
   create(@Body() createCustomerDto: CreateCustomerDto) {
     return this.appService.create(createCustomerDto);
@@ -33,15 +43,5 @@ export class CustomerController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.appService.remove(+id);
-  }
-
-  @Post("auth/login")
-  login(@Body() loginRequestDto: LoginRequestDto) {
-    return this.appService.login(loginRequestDto);
-  }
-  @UseGuards(AuthGuard)
-  @Post("updateFcmToken")
-  updateFcmToken(@Request() req: any, @Body() updateFcmTokenDto: UpdateFcmTokenRequestDto) {
-    return this.appService.updateFcmToken(req.user, updateFcmTokenDto);
   }
 }
