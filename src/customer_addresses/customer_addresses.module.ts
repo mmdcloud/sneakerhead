@@ -19,10 +19,10 @@ import { AuthGuard } from './auth.guard';
   providers: [
     CustomerAddressesService,
     ...customerAddressProviders,
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: AuthGuard,
+    // },
   ],
 })
 export class CustomerAddressesModule { }
