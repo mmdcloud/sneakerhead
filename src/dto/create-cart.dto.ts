@@ -1,3 +1,4 @@
 export class CreateCartDto {
-    value: string
+    productId: string;
+    productName: string;
 }

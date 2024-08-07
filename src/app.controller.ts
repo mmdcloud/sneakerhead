@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Body, Request } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Request, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 
@@ -29,9 +29,9 @@ export class AppController {
     }
   }
   @Delete()
-  async deleteData() {
+  async deleteData(@Query() query: { key: string }) {
     try {
-      return await this.appService.deleteData();
+      return await this.appService.deleteData(query.key);
     } catch (error) {
       console.log(error);
       return error;

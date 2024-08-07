@@ -8,16 +8,19 @@ export class AppService {
   constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) { }
 
   async getData(user): Promise<string | undefined> {
-    const value = await this.cacheManager.get<string>(user.id);
+    const value = await this.cacheManager.get<string>(user.id.toString());
     return value;
   }
 
   async postData(createCartDto: CreateCartDto, user) {
-    const { } = createCartDto;
-    await this.cacheManager.set(user.id, createCartDto.value);
+    var stringifiedJson = JSON.stringify({
+      "productId": createCartDto.productId,
+      "productName": createCartDto.productName
+    });
+    await this.cacheManager.set(user.id.toString(), stringifiedJson);
   }
 
-  async deleteData() {
-    await this.cacheManager.del('key');
+  async deleteData(key: string) {
+    await this.cacheManager.del(key);
   }
 }
