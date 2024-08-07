@@ -7,14 +7,14 @@ import { CreateCartDto } from './dto/create-cart.dto';
 export class AppService {
   constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) { }
 
-  async getData(): Promise<string | undefined> {
-    const value = await this.cacheManager.get<string>('test');
+  async getData(user): Promise<string | undefined> {
+    const value = await this.cacheManager.get<string>(user.id);
     return value;
   }
 
-  async postData(createCartDto: CreateCartDto) {
+  async postData(createCartDto: CreateCartDto, user) {
     const { } = createCartDto;
-    await this.cacheManager.set('key', "value");
+    await this.cacheManager.set(user.id, createCartDto.value);
   }
 
   async deleteData() {

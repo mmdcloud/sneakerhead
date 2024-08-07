@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Body } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Request } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 
@@ -7,10 +7,11 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Get()
-  async getData() {
+  async getData(@Request() req) {
     try {
       var json = {
-        msg: await this.appService.getData()
+        key: req.user.id,
+        value: JSON.parse(await this.appService.getData(req.user))
       };
       return json;
     } catch (error) {
@@ -19,9 +20,9 @@ export class AppController {
     }
   }
   @Post()
-  async postData(@Body() createCartDto: CreateCartDto) {
+  async postData(@Body() createCartDto: CreateCartDto, @Request() req) {
     try {
-      return await this.appService.postData(createCartDto);
+      return await this.appService.postData(createCartDto, req.user);
     } catch (error) {
       console.log(error);
       return error;
