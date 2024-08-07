@@ -64,7 +64,7 @@ export class CustomerService {
     response.msg = "Login successful !";
     response.state = "success";
     response.access_token = await this.jwtService.signAsync({
-      sub: record[0].id, contact: record[0].contact
+      sub: record[0].id, contact: record[0].contact, id: record[0].id
     });
     return response;
   }
